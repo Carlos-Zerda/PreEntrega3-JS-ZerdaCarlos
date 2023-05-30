@@ -179,6 +179,15 @@ function mostrarCarrito() {
     mostrarCarrito();
   });
 
+  const FinalizarCompra = document.createElement("button");
+  vaciarBoton.textContent = "Finalizar compra";
+  contenido.appendChild(vaciarBoton);
+  vaciarBoton.addEventListener("click", () => {
+    alert("Gracias por su compra")
+    vaciarCarrito();
+
+  });
+
   modal.style.display = "block";
 
   const span = document.getElementsByClassName("close")[0];
@@ -249,6 +258,32 @@ function guardarCarrito(carrito) {
   const carritoJSON = JSON.stringify(carritoParaGuardar);
   localStorage.setItem(CARRO_KEY, carritoJSON);
 }
+
+const url = `https://jsonplaceholder.typicode.com/users/`
+
+
+
+fetch(url)
+  .then(Response => Response.json())
+  .then(listaDeExperiencias => {
+    listaDeExperiencias.forEach(usuario => {
+      experiencias.innerHTML += `
+      <div class="card">
+        <div class="card-header">
+          ${usuario.name}
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-5 ">
+            <p>${usuario.email}</p>
+            <footer class="blockquote-footer">Delicioso <cite title="Source Title">,Exelente</cite></footer>
+          </blockquote>
+        </div>
+      </div>`
+    })
+  })
+  .catch(err => console.log(err))
+
+const experiencias = document.getElementById("experiencias")
 
 
 document.addEventListener('DOMContentLoaded', () => {
